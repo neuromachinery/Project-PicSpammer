@@ -6,13 +6,18 @@ from time import sleep
 from datetime import datetime
 from ssl import SSLWantWriteError
 CWD = realpath(dirname(__name__))
-TOKEN = "5655546835:AAHhgZm1ydBPquuwkJ5B12dqAm_vgv1HYE4"
-CHANNEL = -1001894150205
+try:from config import TOKEN,CHANNEL
+except ImportError:
+	input('NO CONFIG!\nMake "config.py" file with this content:\n\nTOKEN = "TOKEN"\nCHANNEL = "CHANNEL\n\nPress enter to exit"')
+	quit()
 bot = telebot.TeleBot(TOKEN)
 picDirectory = join(CWD,"Pics") 
-offset = 291 #291 maybe dangerous #428
+offset = 0 # starting point
 print("Got path -> ", picDirectory)
 pics = listdir(picDirectory)
+if(len(pics)==0):
+	input("NO PICS!\n Add them to 'Pics' folder.\nPress enter to exit")
+	quit()
 if(len(pics)<10):Len = 1
 else:Len = ceil(len(pics)/10)
 print("Started")
